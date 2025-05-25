@@ -8,9 +8,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: build image
-        run: docker build ./api/ -t heemansh/devops-qr-code-api:latest
+        run: |
+          docker build ./api/ -t heemansh/devops-qr-code-api:latest
+          docker build ./front-end-nextjs/ -t heemansh/devops-qr-code-frontend:latest
       - name: push image to docker hub
         run: |
           docker login -u heemansh -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push heemansh/devops-qr-code-api:latest
-      
+          docker push heemansh/devops-qr-code-frontend:latest 
